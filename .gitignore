@@ -1,0 +1,13 @@
+.vs
+KeyPay/bin
+KeyPay/obj
+KeyPay.Common/bin
+KeyPay.Common/obj
+KeyPay.Data/bin
+KeyPay.Data/obj
+KeyPay.Presentation/bin
+KeyPay.Presentation/obj
+KeyPay.Repo/bin
+KeyPay.Repo/obj
+KeyPay.Services/bin
+KeyPay.Services/obj
