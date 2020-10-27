@@ -7,13 +7,17 @@ namespace KeyPay.Data.Infrastructure
 {
     public class UnitOfWork<TContex> : IUnitOfWork<TContex> where TContex : DbContext, new()
     {
-
+        #region ctor
         protected readonly DbContext _db;
         public UnitOfWork()
         {
             _db = new TContex();
         }
 
+        #endregion ctor
+
+
+        #region Save
         public void Save()
         {
             _db.SaveChanges();
@@ -23,7 +27,10 @@ namespace KeyPay.Data.Infrastructure
         {
             return _db.SaveChangesAsync();
         }
+        #endregion /Save
 
+
+        #region Dispose
         private bool disposed = false;
         protected virtual void Dispose(bool disposing)
         {
@@ -47,6 +54,13 @@ namespace KeyPay.Data.Infrastructure
             GC.SuppressFinalize(this);
 
         }
+
+        ~UnitOfWork()
+        {
+            Dispose(false);
+        }
+        #endregion /Dispose
+
     }
 
 }
