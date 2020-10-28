@@ -21,7 +21,7 @@ namespace KeyPay.Repo.Infrastructure
         #region Private Repositories
 
         private IUserRepository userRepository;
-        public IUserRepository IUserRepository
+        public IUserRepository UserRepository
         {
             get
             {

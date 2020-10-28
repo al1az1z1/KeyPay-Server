@@ -1,18 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using KeyPay.Repo.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace KeyPay.Repo.Infrastructure
 {
     public interface IUnitOfWork<TContext> : IDisposable where TContext : DbContext
     {
-        //Repositories.Interface.IUserRepository IUserRepository { get; }
-        
+        IUserRepository UserRepository { get; }
+
 
         void Save();
 
-        System.Threading.Tasks.Task<int> SaveAsync();
+        Task<int> SaveAsync();
 
     }
 }

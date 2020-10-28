@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using KeyPay.Data.DatabaseContext;
 using KeyPay.Repo.Infrastructure;
+using KeyPay.Services.Auth.Interface;
+using KeyPay.Services.Auth.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,7 +33,8 @@ namespace KeyPay.Presentation
             services.AddCors();
 
             services.AddScoped<IUnitOfWork<KeyPayDbContext> , UnitOfWork<KeyPayDbContext>>();
-            
+            services.AddScoped<IAuthService, AuthService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

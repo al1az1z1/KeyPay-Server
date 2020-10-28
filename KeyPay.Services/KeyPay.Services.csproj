@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KeyPay.Repo\KeyPay.Repo.csproj" />
-    
+    <ProjectReference Include="..\KeyPay.Common\KeyPay.Common.csproj" />
   </ItemGroup>
 
 </Project>
