@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KeyPay.Data.Infrastructure
 {
-    public class Repository<TEntity> : IRepository<TEntity>, IDisposable where TEntity : class
+    public abstract class Repository<TEntity> : IRepository<TEntity>, IDisposable where TEntity : class
     {
         public Repository(DbContext db)
         {

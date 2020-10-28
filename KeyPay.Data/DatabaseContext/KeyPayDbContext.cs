@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KeyPay.Data.DatabaseContext
 {
-    class KeyPayDbContext : DbContext
+    public class KeyPayDbContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

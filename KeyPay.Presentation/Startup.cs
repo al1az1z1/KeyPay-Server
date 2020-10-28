@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KeyPay.Data.DatabaseContext;
+using KeyPay.Data.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +29,8 @@ namespace KeyPay.Presentation
         {
             services.AddControllers();
             services.AddCors();
+
+            services.AddScoped<IUnitOfWork<KeyPayDbContext> , UnitOfWork<KeyPayDbContext>>();
             
         }
 

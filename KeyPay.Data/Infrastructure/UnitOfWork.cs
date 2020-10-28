@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using KeyPay.Data.Repositories.Interface;
+using KeyPay.Data.Repositories.Repo;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,8 +16,25 @@ namespace KeyPay.Data.Infrastructure
             _db = new TContex();
         }
 
-        #endregion ctor
+        #endregion /ctor
 
+        #region Private Repositories
+
+        private IUserRepository userRepository;
+        public IUserRepository IUserRepository
+        {
+            get
+            {
+                if (userRepository == null)
+                {
+                    userRepository = new UserRepository(_db);
+                }
+                return userRepository;
+            }
+
+        }
+
+        #endregion /Private Repositories
 
         #region Save
         public void Save()
@@ -29,9 +48,13 @@ namespace KeyPay.Data.Infrastructure
         }
         #endregion /Save
 
+     
 
         #region Dispose
         private bool disposed = false;
+
+
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
