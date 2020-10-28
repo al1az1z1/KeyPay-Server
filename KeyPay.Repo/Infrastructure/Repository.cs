@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KeyPay.Data.Infrastructure
+namespace KeyPay.Repo.Infrastructure
 {
     public abstract class Repository<TEntity> : IRepository<TEntity>, IDisposable where TEntity : class
     {

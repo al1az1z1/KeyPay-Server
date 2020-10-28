@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using KeyPay.Data.Models;
+using KeyPay.Repo.Repositories.Interface;
+using KeyPay.Data.DatabaseContext;
 
-namespace KeyPay.Data.Repositories.Repo
+namespace KeyPay.Repo.Repositories.Repo
 {
-    public class UserRepository : Infrastructure.Repository<Models.User>, Repositories.Interface.IUserRepository
+    public class UserRepository : Infrastructure.Repository<User>, IUserRepository
     {
         public UserRepository(DbContext dbContext) : base(dbContext)
         {
@@ -13,7 +13,7 @@ namespace KeyPay.Data.Repositories.Repo
             //DbContext = dbContext;
 
             // یعمی مقدار  رو برابر با این دیتابیس کانتکس قرار بده 
-            _db ??= (DatabaseContext.KeyPayDbContext)_db;
+            _db ??= (KeyPayDbContext)_db;
 
         }
         // i think it's better for DI

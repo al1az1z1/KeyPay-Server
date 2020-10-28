@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Reflection.Metadata;
 using System.Text;
 
-namespace KeyPay.Data.Infrastructure
+namespace KeyPay.Repo.Infrastructure
 {
     public interface IRepository<TEntity> where TEntity : class
     {

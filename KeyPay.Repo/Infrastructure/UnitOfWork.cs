@@ -1,11 +1,11 @@
-﻿using KeyPay.Data.Repositories.Interface;
-using KeyPay.Data.Repositories.Repo;
+﻿using KeyPay.Repo.Repositories.Interface;
+using KeyPay.Repo.Repositories.Repo;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace KeyPay.Data.Infrastructure
+namespace KeyPay.Repo.Infrastructure
 {
     public class UnitOfWork<TContex> : IUnitOfWork<TContex> where TContex : DbContext, new()
     {
