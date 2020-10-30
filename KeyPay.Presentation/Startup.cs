@@ -33,6 +33,7 @@ namespace KeyPay.Presentation
             services.AddCors();
 
             services.AddScoped<IUnitOfWork<KeyPayDbContext> , UnitOfWork<KeyPayDbContext>>();
+
             services.AddScoped<IAuthService, AuthService>();
 
         }

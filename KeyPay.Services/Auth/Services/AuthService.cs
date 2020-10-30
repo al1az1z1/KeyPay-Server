@@ -40,13 +40,7 @@ namespace KeyPay.Services.Auth.Services
             await _db.UserRepository.InsertAsync(user);
             await _db.SaveAsync();
 
-
-
             return user;
-
-
-
-
 
         }
     }

@@ -15,6 +15,7 @@ namespace KeyPay.Repo.Repositories.Repo
             // یعمی مقدار  رو برابر با این دیتابیس کانتکس قرار بده 
             _db ??= (KeyPayDbContext)_db;
 
+
         }
         // i think it's better for DI
         //internal DbContext DbContext { get; }

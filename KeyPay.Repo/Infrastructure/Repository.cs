@@ -76,6 +76,7 @@ namespace KeyPay.Repo.Infrastructure
             return result;
         }
 
+        //should use in XXXxxxrepo
         public TEntity Get(Expression<Func<TEntity, bool>> where)
         {
             var result = _dbSet.Where(where).FirstOrDefault();

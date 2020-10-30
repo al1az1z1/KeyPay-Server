@@ -10,11 +10,13 @@ namespace KeyPay.Repo.Infrastructure
     public class UnitOfWork<TContex> : IUnitOfWork<TContex> where TContex : DbContext, new()
     {
         #region ctor
-        protected readonly DbContext _db;
+        
         public UnitOfWork()
         {
             _db = new TContex();
         }
+
+        protected readonly DbContext _db;
 
         #endregion /ctor
 
