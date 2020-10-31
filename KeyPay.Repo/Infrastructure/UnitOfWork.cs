@@ -44,9 +44,9 @@ namespace KeyPay.Repo.Infrastructure
             _db.SaveChanges();
         }
 
-        public System.Threading.Tasks.Task<int> SaveAsync()
+        public async System.Threading.Tasks.Task<int> SaveAsync()
         {
-            return _db.SaveChangesAsync();
+            return await _db.SaveChangesAsync();
         }
         #endregion /Save
 

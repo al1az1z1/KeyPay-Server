@@ -1,15 +1,15 @@
 ﻿using KeyPay.Data.DatabaseContext;
 using KeyPay.Data.Models;
 using KeyPay.Repo.Infrastructure;
-using KeyPay.Services.Auth.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using KeyPay.Repo.Repositories.Repo;
 using KeyPay.Common.Helpers;
+using KeyPay.Services.Site.Admin.Auth.Interface;
 
-namespace KeyPay.Services.Auth.Services
+namespace KeyPay.Services.Site.Admin.Auth.Services
 {
     public class AuthService : IAuthService
     {
@@ -23,9 +23,18 @@ namespace KeyPay.Services.Auth.Services
 
         private readonly IUnitOfWork<KeyPayDbContext> _db;
 
-        public Task<User> Login(string username, string password)
+        public async Task<User> Login(string username, string password)
         {
-            throw new NotImplementedException();
+            var user = await _db.UserRepository.GetAsync(u => u.UserName.ToLower() == username.ToLower());
+            if (user == null)
+            {
+                return null;
+            }
+            if (Utilities.PasswordVerified(password, user.PasswordHash, user.PasswordSalt))
+            {
+                return user;
+            }
+            return null;
         }
 
         public async Task<User> Register(User user, string password)
@@ -43,5 +52,7 @@ namespace KeyPay.Services.Auth.Services
             return user;
 
         }
+
+      
     }
 }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -8,6 +8,10 @@
   <ItemGroup>
     <ProjectReference Include="..\KeyPay.Repo\KeyPay.Repo.csproj" />
     <ProjectReference Include="..\KeyPay.Common\KeyPay.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Api\" />
   </ItemGroup>
 
 </Project>

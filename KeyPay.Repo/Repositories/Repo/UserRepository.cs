@@ -2,6 +2,7 @@
 using KeyPay.Data.Models;
 using KeyPay.Repo.Repositories.Interface;
 using KeyPay.Data.DatabaseContext;
+using System.Threading.Tasks;
 
 namespace KeyPay.Repo.Repositories.Repo
 {
@@ -22,6 +23,14 @@ namespace KeyPay.Repo.Repositories.Repo
 
         private readonly DbContext _db;
 
-
+        // Private function for Private Repository
+        public async Task<bool> UserExist(string username)
+        {
+            if (await GetAsync(current => current.UserName.ToLower() == username.ToLower()) != null)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
