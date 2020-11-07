@@ -26,7 +26,7 @@ namespace KeyPay.Repo.Repositories.Repo
         // Private function for Private Repository
         public async Task<bool> UserExist(string username)
         {
-            if (await GetAsync(current => current.UserName.ToLower() == username.ToLower()) != null)
+            if (await GetAsync(current => current.UserName.ToLower() == username.ToLower()) !=null )
             {
                 return true;
             }

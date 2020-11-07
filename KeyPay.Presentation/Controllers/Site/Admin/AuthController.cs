@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using KeyPay.Common.ErrorMessages;
 using KeyPay.Data.Models;
 using KeyPay.Repo.Infrastructure;
 using KeyPay.Services.Site.Admin.Auth.Interface;
@@ -27,30 +28,39 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
         /// </summary>
         /// <returns></returns>
 
-        [HttpGet]
+       [HttpPost("register")]
 
-        public async Task<IActionResult> Register(string username, string password)
+        public async Task<IActionResult> Register(Data.Dto.Site.Admin.UserForRegisterDto userForRegisterDto)
         {
 
-            username = username.ToLower();
-            if (!await _db.UserRepository.UserExist(username))
+            userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
+            if (await _db.UserRepository.UserExist(userForRegisterDto.UserName))
             {
-                return BadRequest("There is an username as like this");
+                return BadRequest(new KeyPay.Common.ErrorMessages.Messages()
+                {
+                    code = 400,
+                    status = false,
+                    title = "خطا",
+                    message = "نام کاربری یا رمز عبور موجود است",
+                }
+                );
             }
+            //return BadRequest("There is an username as like this");
             var user = new User()
             {
-                Address = "",
-                City = "",
+
+                UserName = userForRegisterDto.UserName,
+                Name = userForRegisterDto.Name,
+                PhoneNumber = userForRegisterDto.PhoneNumber,
                 DateOfBirth = System.DateTime.Now,
-                Gender = "",
+                Gender = true,
                 IsActive = true,
-                Name = "",
-                PhoneNumber = "",
                 Status = true,
-                UserName = "",
+                Address="",
+
             };
 
-           var createdUser =  await _authService.Register(user, password);
+            var createdUser = await _authService.Register(user, userForRegisterDto.Password);
 
             return StatusCode(201);
 

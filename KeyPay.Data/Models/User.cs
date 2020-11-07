@@ -46,7 +46,7 @@ namespace KeyPay.Data.Models
 
 
 
-        public string Gender { get; set; }
+        public bool Gender { get; set; }
 
         public DateTime DateOfBirth { get; set; }
 
