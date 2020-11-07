@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using KeyPay.Data.DatabaseContext;
 using KeyPay.Repo.Infrastructure;
 using KeyPay.Services.Site.Admin.Auth.Interface;
 using KeyPay.Services.Site.Admin.Auth.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,9 +34,23 @@ namespace KeyPay.Presentation
             services.AddControllers();
             services.AddCors();
 
-            services.AddScoped<IUnitOfWork<KeyPayDbContext> , UnitOfWork<KeyPayDbContext>>();
+            services.AddScoped<IUnitOfWork<KeyPayDbContext>, UnitOfWork<KeyPayDbContext>>();
 
             services.AddScoped<IAuthService, AuthService>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey
+                    (Encoding.ASCII.GetBytes(Configuration.GetSection("AppSetting:Token").Value)),
+                    // two bottom properties becuase of local Host are false maybe change in real Host or publish
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                };
+            });
+
 
         }
 
@@ -52,6 +68,8 @@ namespace KeyPay.Presentation
             app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
