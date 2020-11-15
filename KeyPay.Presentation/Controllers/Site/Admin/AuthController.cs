@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using KeyPay.Common.ErrorMessages;
+using KeyPay.Data.DatabaseContext;
 using KeyPay.Data.Dto.Site.Admin;
 using KeyPay.Data.Models;
 using KeyPay.Repo.Infrastructure;
@@ -92,6 +93,22 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
 
         public async System.Threading.Tasks.Task<IActionResult> LoginAsync(UserForLoginDto userForLoginDto)
         {
+            //try
+            //{
+            //throw exception and test extension class in Common and startup changes it is with header http
+            //throw new Exception("auto error");
+
+            //anither way for export error to front it is without http and like json result
+
+            //return Unauthorized(new Messages()
+            //{
+            //    status = false,
+            //    title = "خطا",
+            //    message = "مرز عبور و نام کاربری اشتباه است",
+
+            //});
+
+
             var userFromRepo = await _authService.Login(userForLoginDto.Username, userForLoginDto.Password);
 
             if (userFromRepo == null)
@@ -130,17 +147,26 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
             {
                 token = tokenHandler.WriteToken(token)
             });
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    return StatusCode(500, ex.Message);
+            //}
+
 
 
         }
 
         #endregion /Login
 
+        #region test authorize
 
         [AllowAnonymous]
         [HttpGet("getvalue")]
         public async Task<IActionResult> GetValueAsync()
         {
+
             return Ok(new Messages()
             {
                 status = true,
@@ -152,13 +178,14 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
         [HttpPost("getvalue")]
         public async Task<IActionResult> PostValueAsync()
         {
-            
-              return Ok(new Messages()
+
+            return Ok(new Messages()
             {
                 status = true,
                 message = "ok",
             });
         }
+        #endregion /test authorize
 
 
 
