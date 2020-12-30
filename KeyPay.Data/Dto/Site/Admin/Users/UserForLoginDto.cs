@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace KeyPay.Data.Dto.Site.Admin
+namespace KeyPay.Data.Dto.Site.Admin.Users
 {
     public class UserForLoginDto
     {

@@ -14,6 +14,9 @@ namespace KeyPay.Repo.Repositories.Repo
             //DbContext = dbContext;
 
             // یعمی مقدار  رو برابر با این دیتابیس کانتکس قرار بده 
+            //_db ??= (KeyPayDbContext)dbContext;
+
+            //انگار نباشه هم کار میکنه چون تو این حالت مقدار _db ناله
             _db ??= (KeyPayDbContext)_db;
 
 

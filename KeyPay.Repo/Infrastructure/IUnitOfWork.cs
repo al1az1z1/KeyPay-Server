@@ -12,9 +12,9 @@ namespace KeyPay.Repo.Infrastructure
         IUserRepository UserRepository { get; }
 
 
-        void Save();
+        bool Save();
 
-        Task<int> SaveAsync();
+        Task<bool> SaveAsync();
 
     }
 }

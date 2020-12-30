@@ -14,5 +14,22 @@ namespace KeyPay.Common.Helpers
             response.Headers.Add("Access-Control-Expose", "App-error");
             response.Headers.Add("Access-Control-Allow-Origin", "*");
         }
+
+
+        public static int ToAge(this DateTime dateTime)
+        {
+            var age = DateTime.Today.Year - dateTime.Year;
+
+
+            // برای اینکه بعد از تفریق یک سال سن رو بالاتر میگیره 
+            if (dateTime.AddYears(age) > DateTime.Today)
+            {
+                age--;
+            }
+
+            return age;
+
+
+        }
     }
 }

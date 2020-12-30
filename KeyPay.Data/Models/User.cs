@@ -24,23 +24,30 @@ namespace KeyPay.Data.Models
         #endregion / Relational Fields
 
 
-
+        [System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength = 0)]
         [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
 
+        [System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength = 0)]
         [System.ComponentModel.DataAnnotations.Required]
         public string UserName { get; set; }
 
+        [System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength = 0)]
         [System.ComponentModel.DataAnnotations.Required]
         public string PhoneNumber { get; set; }
 
+
+        [System.ComponentModel.DataAnnotations.StringLength(500, MinimumLength = 0)]
         [System.ComponentModel.DataAnnotations.Required]
         public string Address { get; set; }
 
 
+        [System.ComponentModel.DataAnnotations.StringLength(500, MinimumLength = 0)]
         [System.ComponentModel.DataAnnotations.Required]
         public byte[] PasswordHash { get; set; }
 
+
+        [System.ComponentModel.DataAnnotations.StringLength(500, MinimumLength = 0)]
         [System.ComponentModel.DataAnnotations.Required]
         public byte[] PasswordSalt { get; set; }
 
@@ -50,6 +57,10 @@ namespace KeyPay.Data.Models
 
         public DateTime DateOfBirth { get; set; }
 
+        public DateTime LastActive { get; set; }
+
+
+        [System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength = 0)]
         public string City { get; set; }
 
 

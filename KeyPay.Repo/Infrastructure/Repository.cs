@@ -83,10 +83,32 @@ namespace KeyPay.Repo.Infrastructure
             return result;
         }
 
-        public IEnumerable<TEntity> GetMany(Expression<Func<TEntity, bool>> where)
+
+        // for retrieve for example  users accompany with photoes and bankcards
+        public IEnumerable<TEntity> GetMany(Expression<Func<TEntity, bool>>
+            filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeEntity = ""
+            )
         {
-            var result = _dbSet.Where(where).AsEnumerable();
-            return result;
+            IQueryable<TEntity> query = _dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            foreach (var item in includeEntity.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(item);
+
+            }
+            if (orderBy != null)
+            {
+               return orderBy(query).ToList();
+            }
+
+            else
+            {
+                return query.ToList();
+            }
         }
 
         #endregion / sync Crud
@@ -156,9 +178,34 @@ namespace KeyPay.Repo.Infrastructure
         {
             return await _dbSet.Where(where).FirstOrDefaultAsync();
         }
-        public async Task<IEnumerable<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>> where)
+
+
+        // for retrieve for example  users accompany with photoes and bankcards
+        public async Task<IEnumerable<TEntity>> GetManyAsync(Expression<Func<TEntity,
+            bool>> filter = null , Func<IQueryable<TEntity> , IOrderedQueryable<TEntity>> orderBy = null,
+            string includeEntity = "")
         {
-            return await _dbSet.Where(where).ToListAsync();
+            IQueryable<TEntity> query = _dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);    
+            }
+
+            foreach (var item in includeEntity.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(item);
+            }
+            if (orderBy != null)
+            {
+                return await orderBy(query).ToListAsync();
+            }
+
+            else
+            {
+                return await query.ToListAsync();
+            }
+            
         }
 
 

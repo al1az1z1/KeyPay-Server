@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using KeyPay.Common.ErrorMessages;
 using KeyPay.Data.DatabaseContext;
-using KeyPay.Data.Dto.Site.Admin;
+using KeyPay.Data.Dto.Site.Admin.Users;
 using KeyPay.Data.Models;
 using KeyPay.Repo.Infrastructure;
 using KeyPay.Services.Site.Admin.Auth.Interface;
@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace KeyPay.Presentation.Controllers.Site.Admin
 {
     [Authorize]
+    [ApiExplorerSettings(GroupName = "Site")]
     [Route("site/admin/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -45,7 +46,7 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
         [AllowAnonymous]
         [HttpPost("register")]
 
-        public async Task<IActionResult> Register(Data.Dto.Site.Admin.UserForRegisterDto userForRegisterDto)
+        public async Task<IActionResult> Register(Data.Dto.Site.Admin.Users.UserForRegisterDto userForRegisterDto)
         {
 
             userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
@@ -64,14 +65,17 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
             var user = new User()
             {
 
-                UserName = userForRegisterDto.UserName,
                 Name = userForRegisterDto.Name,
+                UserName = userForRegisterDto.UserName,
                 PhoneNumber = userForRegisterDto.PhoneNumber,
-                DateOfBirth = System.DateTime.Now,
+                Address = "2121",
                 Gender = true,
+                DateOfBirth = System.DateTime.Now,
+                LastActive = System.DateTime.Now,
                 IsActive = true,
                 Status = true,
-                Address = "",
+
+
 
             };
 
@@ -160,32 +164,32 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
 
         #endregion /Login
 
-        #region test authorize
+        //#region test authorize
 
-        [AllowAnonymous]
-        [HttpGet("getvalue")]
-        public async Task<IActionResult> GetValueAsync()
-        {
+        //[AllowAnonymous]
+        //[HttpGet("getvalue")]
+        //public async Task<IActionResult> GetValueAsync()
+        //{
 
-            return Ok(new Messages()
-            {
-                status = true,
-                message = "ok",
-            });
-        }
+        //    return Ok(new Messages()
+        //    {
+        //        status = true,
+        //        message = "ok",
+        //    });
+        //}
 
 
-        [HttpPost("getvalue")]
-        public async Task<IActionResult> PostValueAsync()
-        {
+        //[HttpPost("getvalue")]
+        //public async Task<IActionResult> PostValueAsync()
+        //{
 
-            return Ok(new Messages()
-            {
-                status = true,
-                message = "ok",
-            });
-        }
-        #endregion /test authorize
+        //    return Ok(new Messages()
+        //    {
+        //        status = true,
+        //        message = "ok",
+        //    });
+        //}
+        //#endregion /test authorize
 
 
 

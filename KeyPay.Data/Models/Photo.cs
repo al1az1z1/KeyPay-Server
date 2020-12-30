@@ -24,14 +24,19 @@ namespace KeyPay.Data.Models
 
 
 
+        [System.ComponentModel.DataAnnotations.StringLength(1000, MinimumLength = 0)]
         [System.ComponentModel.DataAnnotations.Required]
         public string Url { get; set; }
 
+
+        [System.ComponentModel.DataAnnotations.StringLength(500, MinimumLength = 0)]
         public string Alt { get; set; }
+
+        [System.ComponentModel.DataAnnotations.StringLength(300, MinimumLength = 0)]
         public string Description { get; set; }
 
         [System.ComponentModel.DataAnnotations.Required]
-        public string IsMain { get; set; }
+        public bool IsMain { get; set; }
 
 
 

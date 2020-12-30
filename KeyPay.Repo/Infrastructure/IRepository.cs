@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection.Metadata;
 using System.Text;
@@ -25,7 +26,9 @@ namespace KeyPay.Repo.Infrastructure
 
         TEntity Get(Expression<Func<TEntity, bool>> where);
 
-        IEnumerable<TEntity> GetMany(Expression<Func<TEntity, bool>> where);
+        IEnumerable<TEntity> GetMany(Expression<Func<TEntity, bool>>
+            filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
+            string includeEntity);
         #endregion /Normal Crud
 
         #region Async
@@ -45,7 +48,9 @@ namespace KeyPay.Repo.Infrastructure
 
         System.Threading.Tasks.Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> where);
 
-        System.Threading.Tasks.Task<IEnumerable<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>> where);
+        System.Threading.Tasks.Task<IEnumerable<TEntity>> GetManyAsync(Expression<Func<TEntity, bool>>
+            filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
+            string includeEntity);
 
         #endregion /Async
     }

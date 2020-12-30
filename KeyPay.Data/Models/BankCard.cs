@@ -23,14 +23,27 @@ namespace KeyPay.Data.Models
         #endregion /Foriegn Fields
 
 
+        [System.ComponentModel.DataAnnotations.StringLength(50,MinimumLength =0)]
 
         [System.ComponentModel.DataAnnotations.Required]
         public string BankName { get; set; }
 
 
+
+        [System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength = 0)]
+
+        [System.ComponentModel.DataAnnotations.Required]
+        public string OwnerName { get; set; }
+
+
+        [System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength = 0)]
+
+        [System.ComponentModel.DataAnnotations.Required]
         public string Shaba { get; set; }
 
 
+
+        [System.ComponentModel.DataAnnotations.StringLength(16, MinimumLength = 0)]
         [System.ComponentModel.DataAnnotations.Required]
         public string CardNumber { get; set; }
 
