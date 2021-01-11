@@ -36,6 +36,20 @@ namespace KeyPay.Repo.Infrastructure
 
         }
 
+        private IPhotoRepository photoRepository;
+        public IPhotoRepository PhotoRepository
+        {
+            get
+            {
+                if (photoRepository == null)
+                {
+                    photoRepository = new PhotoRepository(_db);
+                }
+                return photoRepository;
+            }
+
+        }
+
         #endregion /Private Repositories
 
         #region Save

@@ -49,6 +49,8 @@ namespace KeyPay.Presentation
             services.AddControllers();
             services.AddCors();
 
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySetting"));
+
             services.AddScoped<IUnitOfWork<KeyPayDbContext>, UnitOfWork<KeyPayDbContext>>();
 
             services.AddScoped<IAuthService, AuthService>();

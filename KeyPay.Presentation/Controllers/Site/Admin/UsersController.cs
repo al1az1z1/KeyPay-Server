@@ -24,7 +24,7 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
         {
             _db = dbContext;
             _mapper = mapper;
-            _userService = userService
+            _userService = userService;
         }
 
         private readonly IUnitOfWork<KeyPayDbContext> _db;

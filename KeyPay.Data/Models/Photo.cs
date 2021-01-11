@@ -35,8 +35,12 @@ namespace KeyPay.Data.Models
         [System.ComponentModel.DataAnnotations.StringLength(300, MinimumLength = 0)]
         public string Description { get; set; }
 
+        public string PublicId { get; set; }
+
         [System.ComponentModel.DataAnnotations.Required]
         public bool IsMain { get; set; }
+
+
 
 
 
