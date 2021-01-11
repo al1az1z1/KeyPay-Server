@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KeyPay.Common.ErrorMessages
 {
-    public class Messages
+    public class ReturnMessages
     {
         public bool status { get; set; }
 

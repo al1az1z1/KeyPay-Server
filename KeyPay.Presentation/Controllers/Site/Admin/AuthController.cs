@@ -52,7 +52,7 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
             userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
             if (await _db.UserRepository.UserExist(userForRegisterDto.UserName))
             {
-                return BadRequest(new KeyPay.Common.ErrorMessages.Messages()
+                return BadRequest(new KeyPay.Common.ErrorMessages.ReturnMessages()
                 {
                     code = 400,
                     status = false,
@@ -117,7 +117,7 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
 
             if (userFromRepo == null)
 
-                return Unauthorized(new Messages()
+                return Unauthorized(new ReturnMessages()
                 {
                     status = false,
                     title = "خطا",

@@ -52,6 +52,10 @@ namespace KeyPay.Presentation
             services.AddScoped<IUnitOfWork<KeyPayDbContext>, UnitOfWork<KeyPayDbContext>>();
 
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService, UserService>();
+
+
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
             {

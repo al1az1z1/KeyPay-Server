@@ -1,6 +1,8 @@
-﻿using KeyPay.Data.DatabaseContext;
+﻿using KeyPay.Common.ErrorMessages;
+using KeyPay.Data.DatabaseContext;
 using KeyPay.Data.Dto.Site.Admin.Users;
 using KeyPay.Repo.Infrastructure;
+using KeyPay.Services.Site.Admin.Auth.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,15 +20,18 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
     [ApiController]
     public class UsersController : ControllerBase
     {
-        public UsersController(IUnitOfWork<KeyPayDbContext> dbContext, AutoMapper.IMapper mapper)
+        public UsersController(IUnitOfWork<KeyPayDbContext> dbContext, AutoMapper.IMapper mapper, IUserService userService)
         {
             _db = dbContext;
             _mapper = mapper;
+            _userService = userService
         }
 
         private readonly IUnitOfWork<KeyPayDbContext> _db;
 
         private readonly AutoMapper.IMapper _mapper;
+
+        private readonly IUserService _userService;
 
         [HttpGet]
         public async Task<IActionResult> GetUsers()
@@ -87,7 +92,7 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
 
         [HttpPut("{id}")]
 
-        public async Task<IActionResult> UpdateUser (Guid id, UserForUpdateDto userForUpdateDto)
+        public async Task<IActionResult> UpdateUser(Guid id, UserForUpdateDto userForUpdateDto)
         {
             if (id.ToString() != User.FindFirst(ClaimTypes.NameIdentifier).Value)
             {
@@ -106,10 +111,47 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
             }
             else
             {
-                return Unauthorized("خطا در ویرایش ");
+                return BadRequest(new ReturnMessages()
+                {
+                    status = false,
+                    title = "خطا",
+                    message = $"ویرایش برای کاربر {userForUpdateDto.Name} انجام نشد"
+                });
+                //return Unauthorized("خطا در ویرایش ");
             }
 
         }
+
+
+        public async Task<IActionResult> UserChangePassword(Guid id, PasswordForChangeDto passwordForChangeDto)
+        {
+            var userFromRepo = await _userService.GetUserForPassChange(id, passwordForChangeDto.OldPassword);
+            if (userFromRepo == null)
+            {
+                return BadRequest(new ReturnMessages()
+                {
+                    status = false,
+                    title = "خطا",
+                    message = "پسورد قبلی اشتباه میباشد"
+                });
+            }
+
+            if (await _userService.UpdateUserPass(userFromRepo, passwordForChangeDto.NewPassword))
+            {
+                return NoContent();
+            }
+
+            else
+            {
+                return BadRequest(new ReturnMessages()
+                {
+                    status = false,
+                    title = "خطا",
+                    message = "ویرایش پسورد کاربر انجام نشد"
+                });
+            }
+        }
+
 
 
 
