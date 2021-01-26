@@ -12,12 +12,12 @@ namespace KeyPay.Data.Dto.Site.Admin.Photos
 
         public IFormFile File { get; set; }
 
-        public string Alt { get; set; }
+        public string Alt { get; set; } = "Profile pc main one";
 
-        public string Description { get; set; }
+        public string Description { get; set; } = "Profile pc main one";
 
         public string PublicId { get; set; }
 
-        public bool IsMain { get; set; }
+        public bool IsMain { get; set; } = true;
     }
 }

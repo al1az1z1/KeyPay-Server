@@ -18,5 +18,8 @@ namespace KeyPay.Data.DatabaseContext
 
         public DbSet<Models.Photo> Photoes { get; set; }
 
+        public DbSet<Models.Setting> Settings { get; set; }
+
+
     }
 }

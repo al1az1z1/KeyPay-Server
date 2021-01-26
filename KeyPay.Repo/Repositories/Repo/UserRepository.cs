@@ -35,5 +35,15 @@ namespace KeyPay.Repo.Repositories.Repo
             }
             return false;
         }
+
+        //public async Task<User> GetUserByMainPhoto(System.Guid id)
+        //{
+        //    if (await GetAsync(current => current.Id == id ) != null)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+
+        //}
     }
 }

@@ -18,17 +18,19 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace KeyPay.Presentation.Controllers.Site.Admin
 {
-    [Authorize]
+
     [ApiExplorerSettings(GroupName = "Site")]
     [Route("site/admin/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
-        public AuthController(IUnitOfWork<Data.DatabaseContext.KeyPayDbContext> dbcontext, IAuthService authService, IConfiguration configuration)
+        public AuthController(IUnitOfWork<Data.DatabaseContext.KeyPayDbContext> dbcontext, IAuthService authService, IConfiguration configuration
+            , AutoMapper.IMapper mapper)
         {
             _db = dbcontext;
             _authService = authService;
             _config = configuration;
+            Mapper = mapper;
 
         }
 
@@ -37,6 +39,9 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
         private readonly IAuthService _authService;
 
         private readonly IConfiguration _config;
+
+        // روش جدید
+        protected AutoMapper.IMapper Mapper { get; }
 
         /// <summary>
         /// Get controller
@@ -75,11 +80,20 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
                 IsActive = true,
                 Status = true,
 
-
-
             };
 
-            var createdUser = await _authService.Register(user, userForRegisterDto.Password);
+            var photo = new Photo()
+            {
+                UserId = user.Id,
+                //Url = "https://res.cloudinary.com/drtgpzrcl/image/upload/v1611409987/nophoto_sj6orv.png",
+                Url = string.Format("{0}://{1}{2}{3}", Request.Scheme, Request.Host.Value, Request.PathBase.Value, "/File/Pic/profilepic.PNG"),
+                Alt = "Profile pc main one",
+                Description = "Profile pc main one",
+                IsMain = true,
+                PublicId = "0"
+            };
+
+            var createdUser = await _authService.Register(user, photo, userForRegisterDto.Password);
 
             return StatusCode(201);
 
@@ -147,9 +161,12 @@ namespace KeyPay.Presentation.Controllers.Site.Admin
 
             var token = tokenHandler.CreateToken(tokenDes);
 
+            var user = Mapper.Map<UserForDetailDto>(source: userFromRepo);
+
             return Ok(new
             {
-                token = tokenHandler.WriteToken(token)
+                token = tokenHandler.WriteToken(token),
+                user
             });
             //}
             //catch (Exception ex)

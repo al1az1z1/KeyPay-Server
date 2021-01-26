@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -21,6 +22,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -46,10 +48,12 @@ namespace KeyPay.Presentation
 
 
 
-            services.AddControllers();
+            //services.AddControllers();
+            services.AddMvc(opt=> opt.EnableEndpointRouting = false) ;
             services.AddCors();
 
-            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySetting"));
+            // added to setting table
+            //services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySetting"));
 
             services.AddScoped<IUnitOfWork<KeyPayDbContext>, UnitOfWork<KeyPayDbContext>>();
 
@@ -152,7 +156,7 @@ namespace KeyPay.Presentation
 
             //seeder.SeedUsers();
 
-            app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            app.UseCors(c => c.WithOrigins("http://localhost:41856").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
             app.UseRouting();
 
@@ -163,6 +167,14 @@ namespace KeyPay.Presentation
             app.UseOpenApi();
 
             app.UseSwaggerUi3();
+
+            //app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"File")),
+                RequestPath = new PathString("/File")
+            });
 
             #region swagger with configue
             // serve documents (same as app.UseSwagger())
@@ -190,10 +202,12 @@ namespace KeyPay.Presentation
             //});
             #endregion /swagger with configue
 
-            app.UseEndpoints(endpoints =>
-                {
-                    endpoints.MapControllers();
-                });
+            app.UseMvc();
+
+            //app.UseEndpoints(endpoints =>
+            //    {
+            //        endpoints.MapControllers();
+            //    });
         }
     }
 }

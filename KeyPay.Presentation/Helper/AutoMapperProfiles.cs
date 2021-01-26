@@ -26,11 +26,17 @@ namespace KeyPay.Presentation.Helper
 
                 });
 
-
+            //  CreateMap<source, destination>();
 
             CreateMap<KeyPay.Data.Models.User, KeyPay.Data.Dto.Site.Admin.Users.UserForListDto>();
 
             CreateMap<KeyPay.Data.Models.Photo, KeyPay.Data.Dto.Site.Admin.Photos.PhotoForUserDetailDto>();
+
+            CreateMap<KeyPay.Data.Dto.Site.Admin.Photos.PhotoForProfileDto, KeyPay.Data.Models.Photo>();
+
+            CreateMap<KeyPay.Data.Models.Photo, KeyPay.Data.Dto.Site.Admin.Photos.PhotoForReturnProfileDto>();
+
+
 
             CreateMap<KeyPay.Data.Models.BankCard, KeyPay.Data.Dto.Site.Admin.BankCards.BankCardForUserDetailDto>();
 
