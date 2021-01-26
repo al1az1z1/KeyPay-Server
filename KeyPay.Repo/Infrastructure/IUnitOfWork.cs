@@ -13,6 +13,8 @@ namespace KeyPay.Repo.Infrastructure
 
         IPhotoRepository PhotoRepository { get; }
 
+        ISettingRepository SettingRepository { get; }
+
 
         bool Save();
 

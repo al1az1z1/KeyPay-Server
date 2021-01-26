@@ -50,6 +50,20 @@ namespace KeyPay.Repo.Infrastructure
 
         }
 
+        private ISettingRepository settingRepository;
+        public ISettingRepository SettingRepository
+        {
+            get
+            {
+                if (settingRepository == null)
+                {
+                    settingRepository = new SettingRepository(_db);
+                }
+                return settingRepository;
+            }
+
+        }
+
         #endregion /Private Repositories
 
         #region Save
@@ -84,6 +98,7 @@ namespace KeyPay.Repo.Infrastructure
         #region Dispose
         //private bool disposed = false;
         public bool disposed { get; protected set; }
+
 
 
 
